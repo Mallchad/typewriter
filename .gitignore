@@ -1,0 +1,17 @@
+# Ignore everything
+/*
+
+#Whitelsit VC Files
+!.gitignore
+!.README.md
+
+#Whitelist Project Files
+!*.cs
+!*.unity	
+!*.meta
+#Blacklist
+*desktop.ini*
+#Temp Files
+*\#*
+*~*
+*.temp
