@@ -1,0 +1,14 @@
+# Ignore everything
+/*
+#Whitelsit VC Files
+!.gitignore
+!.README.md
+#Whitelist Project Files
+!/HackersDontUseMice/Assets/**
+!*.cs
+!*.unity
+!*.meta
+#Blacklist
+*#
+*~
+*.temp
