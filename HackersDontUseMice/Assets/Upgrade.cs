@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-public class Upgrade : MonoBehaviour
+class Upgrade : MonoBehaviour
 {
+    // GameObject go = Instantiate(buttonPrefab);
+    //  var button = GetComponent<UnityEngine.UI.Button>();
+    //button.onClick.AddListener(() => FooOnClick());
     public float upgradeCostMult;
-    public Text UpgradeButtonText;
+    protected Button UpgradeButton;
+    protected Text UpgradeButtonText;
     public int defaultUpgradeCost;
     public string upgradeName = "upgrade_name_placeholder";
     protected int upgradeCost;
     protected int upgradesBought;
     protected float keysPerUpgrade;
     protected float keysPerSecond;
+    protected ResourceManager rResources;
     // IEnumerator keyGenerationTick()
     // {
     // 	while(true)
@@ -17,11 +22,16 @@ public class Upgrade : MonoBehaviour
     // 	    yield return WaitForSeconds(1);
     // 	}
     // }
-    void Start()
+    void Awake()
     {
+	Instantiate(UpgradeButton);
+	UpgradeButton.transform.position = this.transform.position;
+	UpgradeButton.onClick.AddListener(buyUpgrade);
 	keysPerSecond = 0;
 	upgradesBought = 0;
 	upgradeCost = defaultUpgradeCost;
+	GameObject Resources = GameObject.Find("Resources");
+    rResources = Resources.GetComponent<ResourceManager>();
     }
     // Update is called once per frame
     void Update ()
@@ -30,20 +40,17 @@ public class Upgrade : MonoBehaviour
 	    "\n Cost = " + upgradeCost.ToString();
     }
     // Public Interface
-	public virtual float getKeysPerSecond()
+    public float getKeysPerSecond()
     {
 	return keysPerSecond;
     }
     //Purchase Upgrade
-    public float buyUpgrade(int totalKeystrokes)
+    void buyUpgrade()
     {
-	if (totalKeystrokes >= upgradeCost)
+	if (rResources.totalKeystrokes >= upgradeCost)
 	{
 	    upgradesBought++;
 	    upgradeCost = Mathf.FloorToInt(upgradeCost * upgradeCostMult);
-	    return upgradeCost;
 	}
-	else
-	    return -1;
     }
 }

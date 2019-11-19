@@ -1,47 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-
-
+using UnityEngine.SceneManagement;
 class GameManager : MonoBehaviour 
 {
     public Text TotalKeystrokesText;
-    int totalKeystrokes;
-    float secondTimer;
-    float keystrokesPerSecond;
-    List<Upgrade> avalibleUpgrades = new List<Upgrade>();
-    GameManager()
+    public Button KeystrokeButton;
+    public ResourceManager Resources;
+    public float gameTickRate;
+    float gameTickTimer;
+
+    void Awake()
     {
-	keystrokesPerSecond = 0;
-	secondTimer = 1;
-	totalKeystrokes  = 0;
+	Instantiate(Resources);
+	Resources.TotalKeystrokesText = this.TotalKeystrokesText;
+	Resources.KeystrokeButton = this.KeystrokeButton;
     }
     //Adds keystrokes to total
-    public void userClickOnKeystroke()
-    {
-	int keyPower = 1;
-	totalKeystrokes += keyPower;
-    }
     // Use this for initialization
     void Start ()
-    {
-    }
-    void keystrokeGenerationTick()
-    {
-	foreach (Upgrade upgrade in avalibleUpgrades)
-	{
-	}
-    }
+    {}
     // Update is called once per frame
     void Update ()
     {
-	secondTimer += Time.deltaTime;
-	if (secondTimer <= 0)
-	{
-	    keystrokeGenerationTick();
-	    secondTimer = 1f;
+	gameTickTimer += Time.deltaTime;
+	if (gameTickTimer <= 0)
+	{// Time for next tick
+	    gameTickTimer = 1/gameTickRate; //Reset timer
+	    Resources.tick();
 	}
-	TotalKeystrokesText.text = totalKeystrokes.ToString();
     }
 }

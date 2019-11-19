@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyCap : Upgrade, MonoBehaviour
+class KeyCap : Upgrade
 {
-    KeyCap()
+    void Awake()
     {
 	upgradeCostMult = 4;
 	defaultUpgradeCost = 1;
