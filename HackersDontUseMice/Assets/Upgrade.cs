@@ -6,7 +6,7 @@ class Upgrade : MonoBehaviour
     //  var button = GetComponent<UnityEngine.UI.Button>();
     //button.onClick.AddListener(() => FooOnClick());
     public float upgradeCostMult;
-    protected Button UpgradeButton;
+    public  Button UpgradeButton;
     protected Text UpgradeButtonText;
     public int defaultUpgradeCost;
     public string upgradeName = "upgrade_name_placeholder";
@@ -45,7 +45,7 @@ class Upgrade : MonoBehaviour
 	return keysPerSecond;
     }
     //Purchase Upgrade
-    void buyUpgrade()
+    public void buyUpgrade()
     {
 	if (rResources.totalKeystrokes >= upgradeCost)
 	{
