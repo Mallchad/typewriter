@@ -7,27 +7,34 @@ class GameManager : MonoBehaviour
 {
     public Text TotalKeystrokesText;
     public Button KeystrokeButton;
-    public ResourceManager Resources;
-    public float gameTickRate;
-    float gameTickTimer;
-    public int totalKeystrokes;
+    public Button KeycapBuyButton;
+    public float gameTickRate = 30;
+    public double gameTickTimer = 0.016f;
+    int lifetimeTicks = 0;
+    int startTicks = 0;
+    int endTicks = 0;
+    public int totalKeystrokes = 0;
     public int keyPower = 1;
-    List<Upgrade> GameUpgrades;
+    List<Upgrade> GameUpgrades = new List<Upgrade>();
+    public List<Button> UpgradeButtons = new List<Button>();
     void Awake()
-    {// Add upgrades to List
-	GameUpgrades.Add(new KeyCap());
+    {
+	gameTickTimer = (1/gameTickRate);
 	// Assign Buttons
 	KeystrokeButton.onClick.AddListener(userClickOnKeystroke);
 	// Instansiate Objects
-	foreach (Upgrade UniqueUpgrade in GameUpgrades)
-	{
-	    Instantiate(UniqueUpgrade.UpgradeButton);
-	    // UniqueUpgrade.UpgradeButton.transform.position = Vector3(0,0,0);
-	    UniqueUpgrade.UpgradeButton.onClick.AddListener(UniqueUpgrade.buyUpgrade);
-	}
-	Instantiate(Resources);
-	gameTickRate = 60;
-	gameTickTimer = 1/gameTickRate;
+	// Add upgrades to List
+	GameUpgrades.Add(new KeyCap());
+	UpgradeButtons.Add(KeycapBuyButton);
+	    for (int i = 0; i < GameUpgrades.Count; i++)
+	    {   if (UpgradeButtons.Count < i)
+		{
+		    // UpgradeButtons.Add(gameObject.AddComponent<Button>());
+		    // UpgradeButtons[i].transform.position = UpgradeButtons.height
+		}
+		// UpgradeButtons[i].onClick.AddListener(GameUpgrades[i].buyUpgrade);
+	    }
+	// Resources.GameUpgrades = this.GameUpgrades;
     }
     //Adds keystrokes to total
     public void userClickOnKeystroke()
@@ -40,19 +47,23 @@ class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+	// Debug.Log(gameTickTimer.ToString());
+	// Debug.Log(Time.deltaTime.ToString());
+	// Debug.Log((1/gameTickRate).ToString());
+	Debug.Log(gameTickRate.ToString());
+
 	TotalKeystrokesText.text = totalKeystrokes.ToString();
 	// Tick
 	gameTickTimer -= Time.deltaTime;
 	if (gameTickTimer <= 0)
 	{// Time for next tick
-	    gameTickTimer = 1/gameTickRate; //Reset timer
+	    gameTickTimer = (1/gameTickRate); //Reset timer
 	    tick();
-	    Resources.tick();
 	}
     }
     void tick()
     {
-	Resources.totalKeystrokes = totalKeystrokes;
+	totalKeystrokes += 1;
 	foreach (Upgrade UniqueUpgrade in GameUpgrades)
 	{
 	    totalKeystrokes += (int)Math.Floor(UniqueUpgrade.getKeysPerSecond());

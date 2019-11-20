@@ -1,14 +1,11 @@
-﻿ using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 class KeyCap : Upgrade
 {
-    void Awake()
+    public KeyCap()
     {
 	upgradeCostMult = 4;
 	defaultUpgradeCost = 1;
-	upgradeName = "Key Cap";
+	upgradeName = "Keycap";
 	keysPerUpgrade = 0;
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 class ResourceManager : MonoBehaviour
 {
     public int totalKeystrokes;
+    // public ref List<Upgrade> GameUpgrades;
     void Awake()
     {
         //Instantiate Objects

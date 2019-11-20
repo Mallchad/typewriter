@@ -7,7 +7,7 @@
 
 #Whitelist Project Files
 !*.cs
-!*.unity	
+!*.unity*	
 !*.meta
 #Blacklist
 *desktop.ini*
