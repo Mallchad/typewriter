@@ -25,16 +25,17 @@ class GameManager : MonoBehaviour
 	// Add upgrades to List
 	GameUpgrades.Add(new KeyCap());
 	UpgradeButtons.Add(KeycapBuyButton);
-	    for (int i = 0; i < GameUpgrades.Count; i++)
-	    {   if (UpgradeButtons.Count < GameUpgrades.Count &&
-		    i > UpgradeButtons.Count)
+	for (int i = 0; i < GameUpgrades.Count; ++i)
+	{   if (UpgradeButtons.Count < GameUpgrades.Count &&
+		i > UpgradeButtons.Count)
 		{
 		    UpgradeButtons.Add(gameObject.AddComponent<Button>());
 		}
-		Debug.Log(GameUpgrades.Count.ToString());
-		UpgradeButtons[i].onClick.AddListener(GameUpgrades[i].buyUpgrade);
-	    }
-	// Resources.GameUpgrades = this.GameUpgrades;
+	    UpgradeButtons[i].Text.text = GameUpgrades[i].UpgradeButtonText;
+	    Debug.Log(GameUpgrades.Count.ToString());
+	    UpgradeButtons[i].onClick.AddListener(GameUpgrades[i].buyUpgrade);
+	}
+	// resources.GameUpgrades = this.GameUpgrades;
     }
     //Adds keystrokes to total
     public void userClickOnKeystroke()
@@ -67,13 +68,17 @@ class GameManager : MonoBehaviour
 	    second();
 	}
 	lifetimeTicks++;
+	for (int i = 0; i < GameUpgrades.Count; ++i)
+	{
+	    UpragdeButtons[i].text = GameUpgrades[i].UpgradeButtonText;
+	}
     }
     void second()
     {	// Keystroke Auto-Generation
 	foreach (Upgrade UniqueUpgrade in GameUpgrades)
 	{
 	    totalKeystrokes += (int)Math.Floor(UniqueUpgrade.getKeysPerSecond() *
-					       UniqueUpgrade.keysPerSecond);
+					       UniqueUpgrade.getKeysPerSecond());
 	}
     }
 }

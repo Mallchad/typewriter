@@ -10,8 +10,7 @@ class Upgrade
     public string upgradeName = "<upgrade_name>";
     protected int upgradeCost = 1;
     protected int upgradesBought = 0;
-    protected float keysPerUpgrade = 0;
-    public float keysPerSecond = 0;
+    protected float keystrongGeneration = 0;
     public int totalKeystrokes = 0;
     public Upgrade()
     {
@@ -22,17 +21,19 @@ class Upgrade
     // Public Interface
     public float getKeysPerSecond()
     {
-	return keysPerSecond;
+	return keystrongGeneration * upgradesBought;
     }
     //Purchase Upgrade
-    public void buyUpgrade()
+    public virtual void buyUpgrade()
     {
 	if (totalKeystrokes >= upgradeCost)
 	{
 	    upgradesBought++;
 	    upgradeCost = Mathf.FloorToInt(upgradeCost * upgradeCostMult);
 	}
-	UpgradeButtonText = "Buy 1 " + upgradeName +
+    }
+    public void tick()
+    {	UpgradeButtonText = "Buy 1 " + upgradeName +
 	    "\n Cost = " + upgradeCost.ToString();
 
     }
