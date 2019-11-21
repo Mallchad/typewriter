@@ -11,7 +11,7 @@ class Upgrade
     protected int upgradeCost = 1;
     protected int upgradesBought = 0;
     protected float keysPerUpgrade = 0;
-    protected float keysPerSecond = 0;
+    public float keysPerSecond = 0;
     public int totalKeystrokes = 0;
     public Upgrade()
     {
