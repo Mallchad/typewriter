@@ -2,9 +2,11 @@
 
 class ClickBot : Upgrade
 {
-    ClickBot()
+    public ClickBot()
     {
-	keysPerSecond = 1;
+	defaultUpgradeCost = 10;
+	keystrokeGeneration = 1;
+	upgradeName = "Click Bot";
     }
 
 }

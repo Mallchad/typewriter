@@ -1,4 +1,5 @@
-﻿
+﻿using UnityEngine;
+
 class KeyCap : Upgrade
 {
     public KeyCap()
@@ -6,14 +7,16 @@ class KeyCap : Upgrade
 	upgradeCostMult = 4;
 	defaultUpgradeCost = 1;
 	upgradeName = "Keycap";
-	keysPerUpgrade = 0;
+	keystrokeGeneration = 0;
     }
-    public void buyUpgrade()
+    public override void buyUpgrade(ref int totalKeystrokes, ref int keyPower)
     {
-	if (totalkeystrokes >= upgradeCost)
-	{
-	    upgradesBought++;
-	    upgradeCost = Mathf.FloorToInt(UpgradeCost * UpgradeCostmult);
-	}
+    	if (totalKeystrokes >= upgradeCost)
+    	{   // User Can Afford Upgrade
+    	    totalKeystrokes -= upgradeCost;
+    	    upgradesBought++;
+    	    upgradeCost = Mathf.FloorToInt(upgradeCost * upgradeCostMult);
+    	    keyPower = upgradesBought;
+    	}
     }
 }

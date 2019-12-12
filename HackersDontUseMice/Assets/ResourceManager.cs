@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 class ResourceManager : MonoBehaviour
 {
-    public int totalKeystrokes;
+    public int totalKeystrokes = 0;
+    public int keyPower = 1;
     // public ref List<Upgrade> GameUpgrades;
-    void Awake()
+    ResourceManager()
     {
         //Instantiate Objects
-	totalKeystrokes = 0;
     }
-
     public void tick()
     {
 

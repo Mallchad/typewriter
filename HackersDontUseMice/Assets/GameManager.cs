@@ -24,16 +24,26 @@ class GameManager : MonoBehaviour
 	// Instansiate Objects
 	// Add upgrades to List
 	GameUpgrades.Add(new KeyCap());
-	UpgradeButtons.Add(KeycapBuyButton);
+	GameUpgrades.Add(new ClickBot());
+	GameUpgrades.Add(new BotNet());
+	UpgradeButtons[0].onClick.AddListener( () => GameUpgrades[0].buyUpgrade(ref totalKeystrokes, ref keyPower));
+	UpgradeButtons[1].onClick.AddListener( () => GameUpgrades[1].buyUpgrade(ref totalKeystrokes, ref keyPower));
+	UpgradeButtons[2].onClick.AddListener( () => GameUpgrades[2].buyUpgrade(ref totalKeystrokes, ref keyPower));
+
 	for (int i = 0; i < GameUpgrades.Count; ++i)
-	{   if (UpgradeButtons.Count < GameUpgrades.Count &&
-		i > UpgradeButtons.Count)
-		{
-		    UpgradeButtons.Add(gameObject.AddComponent<Button>());
-		}
-	    UpgradeButtons[i].Text.text = GameUpgrades[i].UpgradeButtonText;
+	{   // Foreach Loop
+	    // if (UpgradeButtons.Count < GameUpgrades.Count &&
+	    // 	i > UpgradeButtons.Count)
+	    //     {
+	    // 	UpgradeButtons.Add(gameObject.AddComponent<Button>());
+	    // 	UpgradeButtons[i].transform.position = UpgradeButtons[i-1].transform.position
+	    // 	    + (Vector3.up * 10);
+	    //     }
+	    Text ButtonText = UpgradeButtons[i].GetComponentInChildren<Text>();
+	    ButtonText.text = GameUpgrades[i].buttonText;
 	    Debug.Log(GameUpgrades.Count.ToString());
-	    UpgradeButtons[i].onClick.AddListener(GameUpgrades[i].buyUpgrade);
+	    // Bind Upgrade Purchase to Button
+	    // UpgradeButtons[i].onClick.AddListener( ()=>GameUpgrades[i].buyUpgrade(ref totalKeystrokes, ref keyPower));
 	}
 	// resources.GameUpgrades = this.GameUpgrades;
     }
@@ -61,7 +71,11 @@ class GameManager : MonoBehaviour
 	}
     }
     void tick()
-    {   // Second Timer
+    {   // Other Object Ticks
+	foreach (Upgrade UniqueUpgrade in GameUpgrades)
+	{
+	    UniqueUpgrade.tick(ref totalKeystrokes, ref keyPower);
+	} // Second Timer
 	if (lifetimeTicks - startTicks > gameTickRate)
 	{
 	    startTicks = lifetimeTicks;
@@ -70,7 +84,9 @@ class GameManager : MonoBehaviour
 	lifetimeTicks++;
 	for (int i = 0; i < GameUpgrades.Count; ++i)
 	{
-	    UpragdeButtons[i].text = GameUpgrades[i].UpgradeButtonText;
+	    Text ButtonText = UpgradeButtons[i].GetComponentInChildren<Text>();
+	    ButtonText.text = GameUpgrades[i].buttonText;
+
 	}
     }
     void second()
